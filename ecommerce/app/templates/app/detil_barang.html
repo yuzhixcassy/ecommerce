@@ -16,12 +16,17 @@
             <ul class="fs-5" style="font-family: Rajdhani;">
                 <li>{{barang.deskripsi}}</li>
             </ul>
-            <div class="buttons row flex" style="font-family: Rajdhani;">
-                <button type="submit" class="d-grid gap-2 btn1 btn btn-danger 
-                p-1 m-1 btn-lg text-decoration-none text-white">Add to Cart</button>
-                <div class="btn btn-dark p-1 m-1 btn-lg">
-                    <a href="#" class="text-decoration-none text-white">Buy Now</a>
-                </div>
+                
+                    <form action="/add-to-cart" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{barang.id}}">
+                        <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+                    </form>
+                    <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Buy Now</a>
+                <!-- {% if wishlist %}
+                    <a pid={{barang.id}} class="minus-wishlist btn btn-danger shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                {% else %}
+                    <a pid={{barang.id}} class="plus-wishlist btn btn-success shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                {% endif %} -->
             </div>
         </div>
     </div>

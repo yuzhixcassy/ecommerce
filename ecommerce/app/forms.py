@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordChangeForm
+from django.contrib.auth.forms import *
 from django.contrib.auth.models import User
 from .models import *
 
@@ -17,14 +17,23 @@ class CustomerRegistForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class ResetPasswordForm(PasswordChangeForm):
-    pass
+class PasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput(attrs={'autofocus':'true', 'autocomplete':'current-password', 'class':'form-control'}))
+    new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+    new_password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+
+class ResetPasswordForm(PasswordResetForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
+
+class SetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(attrs={'autocomplete':'curret-password', 'class':'form-control'}))
+    new_password2 = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput(attrs={'autocomplete':'curret-password', 'class':'form-control'}))
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['nama', 'daerah', 'kota', 'notelp', 'negara', 'kodepos']
-        widget = {
+        widgets = {
             'nama' : forms.TextInput(attrs={'class':'form-control'}),
             'daerah' : forms.TextInput(attrs={'class':'form-control'}),
             'kota' : forms.TextInput(attrs={'class':'form-control'}),

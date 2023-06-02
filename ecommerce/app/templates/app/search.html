@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Hasil Pencarian{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                {% for prod in barang %}
+                    <div class="col-sm-4 text-center mb-4 hover-shadow">
+                        <a href="{% url 'detil_barang' prod.id %}" class="btn">
+                            <div>
+                                <img src="{{prod.foto.url}}" width="300px" height="200px"/>
+                                <div class="fw-bold">{{prod.nama}}</div>
+                                <div class="fw-bold">
+                                    Rp{{prod.harga}},-
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

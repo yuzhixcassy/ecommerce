@@ -120,7 +120,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/profile'
 
 # STATIC_URL = '/static/'
 # MEDIA_URL = '/media/'
@@ -130,3 +130,7 @@ LOGIN_REDIRECT_URL = '/profile/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+RAZOR_KEY_ID = "rzp_test_aMd4nYxBp5UQMZ"
+RAZOR_KEY_SECRET = '1zjwVzzkGWCb4GfC1oTIbU6I'

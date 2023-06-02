@@ -80,3 +80,44 @@ class Customer(models.Model):
     def __str__(self):
         return self.nama
 
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    barang = models.ForeignKey(Barang, on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=1)
+
+    @property
+    def total_cost(self):
+        return self.qty * self.barang.harga
+    
+STATUS_CHOICES = (
+    ('Accepted', 'Accepted'),
+    ('Packed', 'Packed'),
+    ('On The Way', 'On The Way'),
+    ('Delivered', 'Delivered'),
+    ('Cancel', 'Cancel'),
+    ('Pending', 'Pending'),
+)
+
+class Payment(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.FloatField()
+    razor_order_id = models.CharField(max_length=100, blank=True, null=True)
+    razor_payment_status = models.CharField(max_length=100, blank=True, null=True)
+    razor_payment_id = models.CharField(max_length=100, blank=True, null=True)
+    paid = models.BooleanField(default=False)
+
+class OrderPlaced(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    barang = models.ForeignKey(Barang, on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField(default=1)
+    ordered_date =  models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50, choices=(STATUS_CHOICES), default='Pending')
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE,default="")
+    @property
+    def total_cost(self):
+        return self.qty * self.barang.harga
+    
+# class Wishlist(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     barang = models.ForeignKey(Barang, on_delete=models.CASCADE)
